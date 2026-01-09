@@ -6,7 +6,6 @@ const int N = 30;
 const int M = 70;
 
 void updateImage(bool [][M],int,int,int);
-
 void showImage(const bool [][M]);
 
 int main()
@@ -20,4 +19,38 @@ int main()
         updateImage(image,s,x,y);
     }while(s != 0 || x != 0 || y != 0);
     return 0;
+}
+
+void updateImage(bool image[][M], int s, int x, int y)
+{
+    if (s == 0 && x == 0 && y == 0) return;
+
+    int r = s - 1;
+    int r2 = r * r;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            int dx = i - x;
+            int dy = j - y;
+            if (dx*dx + dy*dy <= r2) {
+                image[i][j] = true;
+            }
+        }
+    }
+}
+
+void showImage(const bool image[][M])
+{
+    for (int j = 0; j < M + 2; j++) cout << "-";
+    cout << "\n";
+
+    for (int i = 0; i < N; i++) {
+        cout << "|";
+        for (int j = 0; j < M; j++) {
+            cout << (image[i][j] ? "*" : " ");
+        }
+        cout << "|\n";
+    }
+    for (int j = 0; j < M + 2; j++) cout << "-";
+    cout << "\n";
 }
